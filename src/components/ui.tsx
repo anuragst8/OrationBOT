@@ -117,42 +117,55 @@ export const DeleteButton: React.FC<{
       {/* Confirmation Dialog */}
       {showConfirm && (
         <div 
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999]"
+          className="fixed top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center z-[9999]"
           onClick={() => setShowConfirm(false)}
         >
           <div 
-            className="bg-white dark:bg-slate-800 rounded-2xl p-6 max-w-md mx-4 shadow-2xl border border-slate-200 dark:border-slate-700 transform scale-100 animate-fade-in"
+            className="bg-white dark:bg-slate-800 rounded-3xl p-8 max-w-lg mx-6 shadow-2xl border-2 border-red-200 dark:border-red-800 relative"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Close button */}
+            <button
+              onClick={() => setShowConfirm(false)}
+              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Content */}
+            <div className="text-center">
+              <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
                 </svg>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Delete Chat</h3>
-                <p className="text-sm text-slate-500 dark:text-slate-400">This action cannot be undone</p>
+              
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Delete Chat</h3>
+              <p className="text-slate-500 dark:text-slate-400 mb-6">This action cannot be undone</p>
+              
+              <p className="text-slate-600 dark:text-slate-300 mb-8 text-lg">
+                Are you sure you want to delete <br />
+                <strong className="text-red-600 dark:text-red-400">"{sessionTitle}"</strong>?
+                <br />
+                <span className="text-sm">All messages will be permanently removed.</span>
+              </p>
+              
+              <div className="flex space-x-4">
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  className="flex-1 px-6 py-3 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors font-medium"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="flex-1 px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors font-medium"
+                >
+                  Delete Chat
+                </button>
               </div>
-            </div>
-            
-            <p className="text-slate-600 dark:text-slate-300 mb-6">
-              Are you sure you want to delete <strong>"{sessionTitle}"</strong>? All messages in this chat will be permanently removed.
-            </p>
-            
-            <div className="flex space-x-3">
-              <button
-                onClick={() => setShowConfirm(false)}
-                className="flex-1 px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleDelete}
-                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors"
-              >
-                Delete Chat
-              </button>
             </div>
           </div>
         </div>
