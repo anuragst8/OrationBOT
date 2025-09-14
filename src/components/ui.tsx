@@ -116,8 +116,14 @@ export const DeleteButton: React.FC<{
 
       {/* Confirmation Dialog */}
       {showConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 max-w-md mx-4 shadow-2xl">
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999]"
+          onClick={() => setShowConfirm(false)}
+        >
+          <div 
+            className="bg-white dark:bg-slate-800 rounded-2xl p-6 max-w-md mx-4 shadow-2xl border border-slate-200 dark:border-slate-700 transform scale-100 animate-fade-in"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-10 h-10 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
                 <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
