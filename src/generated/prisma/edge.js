@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.15.0
- * Query Engine version: 85179d7826409ee107a6ba334b5e305ae3fba9fb
+ * Prisma Client JS version: 6.16.1
+ * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
  */
 Prisma.prismaVersion = {
-  client: "6.15.0",
-  engine: "85179d7826409ee107a6ba334b5e305ae3fba9fb"
+  client: "6.16.1",
+  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -144,7 +144,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/sahilvishwakarma/Desktop/code/personal/anurag/project/oration-career-chat/src/generated/prisma",
+      "value": "C:\\Users\\Anurag Singh Thakur\\OneDrive\\Desktop\\pro\\OrationBOT\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -153,12 +153,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/sahilvishwakarma/Desktop/code/personal/anurag/project/oration-career-chat/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\Anurag Singh Thakur\\OneDrive\\Desktop\\pro\\OrationBOT\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -166,8 +166,8 @@ const config = {
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
-  "clientVersion": "6.15.0",
-  "engineVersion": "85179d7826409ee107a6ba334b5e305ae3fba9fb",
+  "clientVersion": "6.16.1",
+  "engineVersion": "1c57fdcd7e44b29b9313256c76699e91c3ac3c43",
   "datasourceNames": [
     "db"
   ],

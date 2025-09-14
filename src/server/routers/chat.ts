@@ -99,7 +99,11 @@ export const chatRouter = router({
         select: { role: true, content: true },
       });
 
-      const systemPrompt = "You are a helpful, professional career counsellor. Provide structured, actionable advice. Do not repeat or rephrase the user's message; respond with new guidance only.";
+      // Detect if the user is writing in Hindi
+      const isHindi = /[\u0900-\u097F]/.test(content);
+      const systemPrompt = isHindi 
+        ? "आप एक सहायक, पेशेवर करियर काउंसलर हैं। संरचित, कार्य योग्य सलाह दें। उपयोगकर्ता के संदेश को दोहराएं या पुनः व्याख्या न करें; केवल नई मार्गदर्शन के साथ उत्तर दें। हिंदी में बात करें।"
+        : "You are a helpful, professional career counsellor. Provide structured, actionable advice. Do not repeat or rephrase the user's message; respond with new guidance only. If the user writes in Hindi, respond in Hindi. If they write in English, respond in English.";
 
       // If forced mock or no provider key, return a local mock response so the UI still works
       const hasOpenAIKey = typeof process.env.OPENAI_API_KEY === "string" && process.env.OPENAI_API_KEY.trim().length > 0;
@@ -111,7 +115,9 @@ export const chatRouter = router({
       );
       if (forceMock || (!hasOpenAIKey && !geminiKey)) {
         const lastUser = history.filter((m) => m.role === "user").slice(-1)[0]?.content ?? content;
-        const mock = `Mock response (no AI available). Your message: "${lastUser}"\n\n- This is a local placeholder while AI is disabled or quota is exceeded.\n- Add or fix OPENAI_API_KEY and remove OPENAI_USE_MOCK to get real answers.`;
+        const mock = isHindi 
+          ? `मॉक प्रतिक्रिया (AI उपलब्ध नहीं)। आपका संदेश: "${lastUser}"\n\n- यह एक स्थानीय प्लेसहोल्डर है जबकि AI अक्षम है या कोटा समाप्त हो गया है।\n- वास्तविक उत्तर पाने के लिए OPENAI_API_KEY जोड़ें या ठीक करें और OPENAI_USE_MOCK हटाएं।`
+          : `Mock response (no AI available). Your message: "${lastUser}"\n\n- This is a local placeholder while AI is disabled or quota is exceeded.\n- Add or fix OPENAI_API_KEY and remove OPENAI_USE_MOCK to get real answers.`;
         const assistant = await prisma.message.create({
           data: { sessionId, role: "assistant", content: mock },
         });

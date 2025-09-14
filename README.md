@@ -1,97 +1,189 @@
-Oration Career Chat
-===================
+# 🚀 OrationBot - AI Career Assistant
 
-AI-powered career counselling chat app built with Next.js (App Router), TypeScript, tRPC, TanStack Query, Prisma (SQLite), and OpenAI.
+A modern, multilingual career guidance chatbot built with Next.js, TypeScript, and AI integration.
 
-Tech stack
-----------
+## ✨ Features
 
-- **Next.js** (App Router, TypeScript)
-- **tRPC** (server + React Query client)
-- **TanStack Query** (data fetching/caching)
-- **Prisma** with **SQLite** (local dev)
-- **Tailwind CSS** (styling)
-- **OpenAI** (LLM responses; easily swap with Together/OpenRouter)
+- **🤖 AI-Powered**: OpenAI/Gemini integration for intelligent responses
+- **🌍 Multilingual**: Hindi and English support with auto-detection
+- **🎨 Modern UI**: Beautiful, responsive design with animations
+- **📱 Mobile-First**: Works perfectly on all devices
+- **⚡ Fast**: Built with Next.js 15 and optimized performance
+- **🔧 Customizable**: Easy to modify colors, text, and features
 
-Getting started
----------------
+## 🛠️ Quick Customization Guide
 
-1. Install prerequisites:
-   - Node.js 18.18+ (Node 20 recommended)
-   - pnpm
+### 1. **Change App Branding** (`src/constants/config.ts`)
+```typescript
+export const APP_CONFIG = {
+  appName: "YourAppName",           // Change app name
+  description: "Your Description",  // Change description
+  colors: {
+    primary: "#6366f1",            // Change primary color
+    secondary: "#8b5cf6",          // Change secondary color
+    // ... more colors
+  }
+}
+```
 
-2. Install dependencies:
-   
-   ```bash
-   pnpm install
-   ```
+### 2. **Modify Text Content** (`src/constants/config.ts`)
+```typescript
+text: {
+  welcome: {
+    title: "Your Welcome Title",
+    subtitle: "Your welcome message",
+    hindi: {
+      title: "आपका स्वागत शीर्षक",
+      subtitle: "आपका स्वागत संदेश"
+    }
+  }
+}
+```
 
-3. Configure environment:
-   
-   - Copy `.env.example` to `.env` and fill in values.
-   - For local dev with SQLite, the default `DATABASE_URL` is ready to use.
+### 3. **Update AI Behavior** (`src/server/routers/chat.ts`)
+- Line 104-106: Modify system prompts
+- Line 118-120: Change mock responses
+- Line 102-106: Adjust language detection
 
-4. Setup database and generate Prisma Client:
-   
-   ```bash
-   pnpm prisma migrate dev
-   pnpm prisma generate
-   ```
+### 4. **Customize UI Components** (`src/components/ui.tsx`)
+- `LanguageToggle`: Language selector
+- `ChatMessage`: Message bubbles
+- `SessionItem`: Session list items
+- `LoadingSpinner`: Loading animations
 
-5. Run the dev server:
-   
-   ```bash
-   pnpm dev
-   ```
+### 5. **Add New Features** (`src/lib/utils.ts`)
+- `formatTime()`: Time formatting
+- `isHindiText()`: Language detection
+- `getPlaceholderText()`: Input placeholders
 
-6. Open `http://localhost:3000` in your browser.
+## 📁 Project Structure
 
-Environment variables
----------------------
+```
+src/
+├── app/                 # Next.js app directory
+│   ├── page.tsx        # Main chat interface
+│   └── globals.css     # Global styles & animations
+├── components/         # Reusable UI components
+│   └── ui.tsx         # All UI components
+├── constants/          # Configuration files
+│   └── config.ts      # App configuration
+├── lib/               # Utility functions
+│   └── utils.ts       # Helper functions
+├── server/            # Backend logic
+│   ├── routers/       # API routes
+│   └── db.ts         # Database connection
+├── types/             # TypeScript definitions
+│   └── index.ts      # Type definitions
+└── utils/            # Client utilities
+    └── trpc.ts       # API client
+```
 
-See `.env.example` for the full list. Required:
+## 🎨 Visual Customization
 
-- `DATABASE_URL` – e.g. `file:./dev.db` for SQLite
-- `OPENAI_API_KEY` – set if using OpenAI for responses
-- `OPENAI_MODEL` – optional (default: `gpt-4o-mini`)
+### Colors
+- **Primary**: `#6366f1` (Indigo)
+- **Secondary**: `#8b5cf6` (Purple)  
+- **Accent**: `#10b981` (Emerald)
+- **Background**: `#f8fafc` (Light gray)
 
-Project structure highlights
----------------------------
+### Animations
+- `animate-fade-in`: Smooth fade-in effect
+- `hover-lift`: Hover elevation effect
+- `animate-bounce`: Bouncing dots animation
+- `spinner`: Loading spinner animation
 
-- `src/server/db.ts` – Prisma Client singleton
-- `src/server/trpc.ts` – tRPC init
-- `src/server/routers/` – tRPC routers (see `chat.ts`)
-- `src/app/api/trpc/[trpc]/route.ts` – tRPC fetch adapter endpoint
-- `src/utils/trpc.ts` – tRPC React client
-- `src/app/page.tsx` – minimal chat UI (sessions + messages)
+## 🔧 Development
 
-Development notes
------------------
+### Prerequisites
+- Node.js 18+
+- npm or pnpm
 
-- If `OPENAI_API_KEY` is not set, sending a message will fail at the API. You can supply an alternate provider by updating `src/server/routers/chat.ts`.
-- The sessions list uses cursor-based pagination via tRPC and React Query.
+### Setup
+```bash
+# Install dependencies
+npm install
 
-Deployment
-----------
+# Setup environment
+cp .env.example .env
+# Add your API keys to .env
 
-1. Provision a database (e.g., Neon or Supabase Postgres) and update `DATABASE_URL`.
-2. Set environment variables on Vercel.
-3. Build and deploy:
-   
-   ```bash
-   pnpm build
-   pnpm start
-   ```
+# Run database migrations
+npx prisma migrate dev
+npx prisma generate
 
-Scoring checklist mapping
--------------------------
+# Start development server
+npm run dev
+```
 
-- Next.js + TypeScript + Tailwind – completed
-- tRPC + TanStack Query – completed
-- Database schema and persistence – completed
-- Chat sessions + history + pagination – completed
-- AI integration – completed (OpenAI), easily swappable
-- README + setup instructions – included
-- Deployment – instructions provided
-# OrationBot
-# OrationBot
+### Environment Variables
+```env
+DATABASE_URL=file:./dev.db
+OPENAI_API_KEY=your_openai_key
+GOOGLE_API_KEY=your_gemini_key
+OPENAI_USE_MOCK=true
+```
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+1. Connect your GitHub repository
+2. Add environment variables
+3. Deploy automatically
+
+### Manual Deployment
+```bash
+npm run build
+npm start
+```
+
+## 📝 Common Customizations
+
+### Change App Name
+1. Edit `src/constants/config.ts` → `appName`
+2. Update `package.json` → `name`
+
+### Add New Language
+1. Add language option to `Language` type
+2. Update `getPlaceholderText()` function
+3. Add translations to config
+
+### Modify AI Responses
+1. Edit system prompts in `chat.ts`
+2. Adjust language detection logic
+3. Update mock responses
+
+### Change Color Scheme
+1. Update colors in `config.ts`
+2. Modify CSS variables in `globals.css`
+3. Test dark/light mode compatibility
+
+## 🎯 Key Files to Modify
+
+| File | Purpose | Common Changes |
+|------|---------|----------------|
+| `src/constants/config.ts` | App configuration | Colors, text, features |
+| `src/app/page.tsx` | Main interface | Layout, styling |
+| `src/components/ui.tsx` | UI components | Component behavior |
+| `src/server/routers/chat.ts` | AI logic | Prompts, responses |
+| `src/lib/utils.ts` | Helper functions | Text formatting, detection |
+
+## 🆘 Troubleshooting
+
+### Common Issues
+1. **API Key Errors**: Check `.env` file
+2. **Database Issues**: Run `npx prisma migrate dev`
+3. **Build Errors**: Check TypeScript types
+4. **Styling Issues**: Verify Tailwind classes
+
+### Getting Help
+- Check the code comments for guidance
+- Look at the configuration files for options
+- Review the component structure for modifications
+
+## 📄 License
+
+MIT License - feel free to modify and use!
+
+---
+
+**Made with ❤️ for easy customization and beautiful user experience**

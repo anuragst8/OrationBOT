@@ -1,4 +1,4 @@
-// File: /Users/sahilvishwakarma/Desktop/code/personal/anurag/project/oration-career-chat/src/app/page.tsx
+// File: C:\Users\Anurag Singh Thakur\OneDrive\Desktop\pro\OrationBOT\src\app\page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
