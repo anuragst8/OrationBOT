@@ -41,6 +41,49 @@ export const chatRouter = router({
       return { success: true };
     }),
 
+  getMessages: publicProcedure
+    .input(z.object({ 
+      sessionId: z.string(),
+      cursor: z.string().nullish(),
+      limit: z.number().min(1).max(100).default(50) 
+    }))
+    .query(async ({ input }) => {
+      const { sessionId, cursor, limit } = input;
+      
+      // Verify session exists
+      const session = await prisma.chatSession.findUnique({
+        where: { id: sessionId },
+        select: { id: true }
+      });
+
+      if (!session) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Session not found',
+        });
+      }
+
+      // Fetch messages
+      const messages = await prisma.message.findMany({
+        where: { sessionId },
+        orderBy: { createdAt: 'asc' },
+        take: limit + 1, // Take one extra to determine if there are more
+        cursor: cursor ? { id: cursor } : undefined,
+      });
+
+      // Ensure we always return an array
+      const messageList = Array.isArray(messages) ? messages : [];
+      
+      let nextCursor: string | undefined = undefined;
+      if (messageList.length > limit) {
+        const nextItem = messageList.pop();
+        nextCursor = nextItem?.id;
+      }
+
+      // Return the array directly instead of an object
+      return messageList;
+    }),
+
   sendMessage: publicProcedure
     // Accept loosely to work around any client/batch serialization quirks
     .input(z.any())
@@ -159,12 +202,23 @@ export const chatRouter = router({
           });
           return { sessionId, user: createdUserMessage, assistant };
         } else {
-          const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+          const apiKey = process.env.OPENAI_API_KEY;
+          if (!apiKey) {
+            throw new Error('No API key configured for OpenAI');
+          }
+          
+          const openai = new OpenAI({
+            apiKey: apiKey
+          });
+          
           const completion = await openai.chat.completions.create({
-            model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+            model: process.env.OPENAI_MODEL || "gpt-3.5-turbo",
             messages: [
               { role: "system", content: systemPrompt },
-              ...history.map((m) => ({ role: m.role as any, content: m.content })),
+              ...history.map((m) => ({
+                role: m.role as "user" | "assistant" | "system",
+                content: m.content
+              }))
             ],
             temperature: 0.4,
           });

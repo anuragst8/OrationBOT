@@ -1,4 +1,4 @@
-// File: C:\Users\Anurag Singh Thakur\OneDrive\Desktop\pro\OrationBOT\src\app\layout.tsx
+// File: C:\Users\Anurag Singh Thakur\CascadeProjects\OrationBOT\src\app\layout.tsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

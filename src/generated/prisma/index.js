@@ -145,7 +145,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Anurag Singh Thakur\\OneDrive\\Desktop\\pro\\OrationBOT\\src\\generated\\prisma",
+      "value": "C:\\Users\\Anurag Singh Thakur\\CascadeProjects\\OrationBOT\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -159,7 +159,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Anurag Singh Thakur\\OneDrive\\Desktop\\pro\\OrationBOT\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Anurag Singh Thakur\\CascadeProjects\\OrationBOT\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

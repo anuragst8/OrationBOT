@@ -1,4 +1,4 @@
-// File: C:\Users\Anurag Singh Thakur\OneDrive\Desktop\pro\OrationBOT\src\app\api\trpc\[trpc]\route.ts
+// File: C:\Users\Anurag Singh Thakur\CascadeProjects\OrationBOT\src\app\api\trpc\[trpc]\route.ts
 import * as entry from '../../../../../../src/app/api/trpc/[trpc]/route.js'
 import type { NextRequest } from 'next/server.js'
 

@@ -6,6 +6,16 @@
 import React from 'react';
 import { Language } from '../types';
 
+// Typing Indicator Component
+export const TypingIndicator: React.FC = () => (
+  <div className="flex items-center space-x-2 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+    <span className="ml-2 text-sm text-slate-500 dark:text-slate-400">Typing...</span>
+  </div>
+);
+
 // Language Toggle Component
 export const LanguageToggle: React.FC<{
   language: Language;

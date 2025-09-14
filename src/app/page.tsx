@@ -194,14 +194,26 @@ export default function Home() {
             </div>
           )}
 
-          {messages.data?.map((m, index) => (
-            <ChatMessage
-              key={m.id}
-              message={m}
-              isHydrated={isHydrated}
-              formatTime={formatTime}
-            />
-          ))}
+          {Array.isArray(messages.data) ? (
+            messages.data.length > 0 ? (
+              messages.data.map((message) => (
+                <ChatMessage
+                  key={message.id}
+                  message={message}
+                  isHydrated={isHydrated}
+                  formatTime={formatTime}
+                />
+              ))
+            ) : (
+              <div className="text-center py-8 text-slate-500 dark:text-slate-400">
+                No messages in this conversation yet
+              </div>
+            )
+          ) : (
+            <div className="text-center py-8 text-slate-500 dark:text-slate-400">
+              Loading messages...
+            </div>
+          )}
 
           {isTyping && <TypingIndicator />}
         </div>
