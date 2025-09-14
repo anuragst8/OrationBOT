@@ -31,14 +31,14 @@ export const chatRouter = router({
       return session;
     }),
 
-  getMessages: publicProcedure
+  deleteSession: publicProcedure
     .input(z.object({ sessionId: z.string() }))
-    .query(async ({ input }) => {
-      const messages = await prisma.message.findMany({
-        where: { sessionId: input.sessionId },
-        orderBy: { createdAt: "asc" },
+    .mutation(async ({ input }) => {
+      // Delete the session and all its messages (cascade delete)
+      await prisma.chatSession.delete({
+        where: { id: input.sessionId },
       });
-      return messages;
+      return { success: true };
     }),
 
   sendMessage: publicProcedure

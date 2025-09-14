@@ -1,5 +1,4 @@
 {
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/api/trpc/[trpc]/route": "app/api/trpc/[trpc]/route.js",
   "/page": "app/page.js"
 }

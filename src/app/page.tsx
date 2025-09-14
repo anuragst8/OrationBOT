@@ -46,6 +46,15 @@ export default function Home() {
     },
   });
   
+  const deleteSession = trpc.chat.deleteSession.useMutation({
+    onSuccess() {
+      utils.chat.listSessions.invalidate();
+      if (activeSessionId) {
+        setActiveSessionId(null);
+      }
+    },
+  });
+  
   const [input, setInput] = React.useState("");
   const [isTyping, setIsTyping] = React.useState(false);
   const [preferredLanguage, setPreferredLanguage] = React.useState<Language>('auto');
@@ -113,6 +122,7 @@ export default function Home() {
               session={s}
               isActive={activeSessionId === s.id}
               onClick={() => setActiveSessionId(s.id)}
+              onDelete={() => deleteSession.mutate({ sessionId: s.id })}
               formatTime={formatTime}
               isHydrated={isHydrated}
               index={index}
