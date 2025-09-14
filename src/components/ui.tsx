@@ -117,11 +117,13 @@ export const DeleteButton: React.FC<{
       {/* Confirmation Dialog */}
       {showConfirm && (
         <div 
-          className="fixed top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center z-[9999]"
+          className="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]"
+          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
           onClick={() => setShowConfirm(false)}
         >
           <div 
             className="bg-white dark:bg-slate-800 rounded-3xl p-8 max-w-lg mx-6 shadow-2xl border-2 border-red-200 dark:border-red-800 relative"
+            style={{ transform: 'translateY(0)' }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
